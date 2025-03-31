@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model NguoiDung{
+  id Int @id @default(autoincrement())
+  name String
+  age Int
+  email String
+  pass_word String
+  phone Int
+  birth_day DateTime
+  gender String
+  role String
+  certification String
+  job CongViec[]
+  cmt BinhLuan[]
+  jobOrder ThueCongViec[]
+}
+model CongViec{
+  id Int @id @default(autoincrement())
+  ten_cong_viec String
+  danh_gia Int
+  gia_tien Int
+  hinh_anh String
+  mo_ta String
+  mo_ta_ngan String
+  sao_cong_viec Int
+  ma_chi_tiet_loai Int
+  nguoi_tao Int
+  user NguoiDung? @relation(fields:[nguoi_tao], references: [id], onDelete: Cascade)
+  cmt BinhLuan?
+  jobType ChiTietLoaiCongViec? @relation(fields: [ma_chi_tiet_loai], references: [id], onDelete: Cascade)
+  jobOrder ThueCongViec?
+} 
+model ThueCongViec{
+  id Int @id @default(autoincrement())
+  ma_cong_viec Int @unique
+  ma_nguoi_thue Int @unique
+  ngay_thue DateTime 
+  hoan_thanh Boolean
+  job CongViec @relation(fields: [ma_cong_viec], references: [id], onDelete: Cascade)
+  user NguoiDung @relation(fields: [ma_nguoi_thue], references: [id], onDelete: Cascade)
+}
+model ChiTietLoaiCongViec{
+  id Int @unique @default(autoincrement())
+  ten_chi_tiet String
+  hinh_anh String
+  ma_loai_cong_viec Int
+  job CongViec[]
+  jobType LoaiCongViec? @relation(fields: [ma_loai_cong_viec], references: [id], onDelete: Cascade)
+}
+model BinhLuan{
+  id Int @id @default(autoincrement())
+  ma_cong_viec Int @unique
+  ma_nguoi_binh_luan Int
+  ngay_binh_luan DateTime @default(now())
+  noi_dung String
+  sao_binh_luan Int
+  user NguoiDung? @relation(fields:[ma_nguoi_binh_luan], references: [id], onDelete: Cascade)
+  job CongViec? @relation(fields: [ma_cong_viec], references: [id], onDelete: Cascade)
+}
+model LoaiCongViec{
+  id Int @unique @default(autoincrement())
+  ten_loai_cong_viec String
+  jobDetail ChiTietLoaiCongViec[]
+}
