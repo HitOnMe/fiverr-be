@@ -5,22 +5,22 @@ import { CreateuserDTO } from './user.validate';
 export class UserService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.nguoiDung.findMany();
+    return await this.prisma.nguoidung.findMany();
   }
   async addUser(userData: CreateuserDTO) {
-    return await this.prisma.nguoiDung.create({
+    return await this.prisma.nguoidung.create({
       data: userData,
     });
   }
   async findUserById(id: string) {
-    return await this.prisma.nguoiDung.findFirst({
+    return await this.prisma.nguoidung.findFirst({
       where: {
         id: +id,
       },
     });
   }
   async updateUser(id: string, data: CreateuserDTO) {
-    return await this.prisma.nguoiDung.update({
+    return await this.prisma.nguoidung.update({
       where: {
         id: +id,
       },
@@ -28,14 +28,14 @@ export class UserService {
     });
   }
   async deleteUser(id: string) {
-    return await this.prisma.nguoiDung.delete({
+    return await this.prisma.nguoidung.delete({
       where: {
         id: +id,
       },
     });
   }
   async SearchUserByName(name: string) {
-    return await this.prisma.nguoiDung.findFirst({
+    return await this.prisma.nguoidung.findFirst({
       where: {
         name: name,
       },

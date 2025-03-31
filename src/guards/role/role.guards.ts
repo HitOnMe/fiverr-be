@@ -35,7 +35,7 @@ export class RolesGuard implements CanActivate {
       // 🔐 Verify token
       const user = this.jwtService.verify(token);
 
-      const isUser = await this.prisma.nguoiDung.findFirst({
+      const isUser = await this.prisma.nguoidung.findFirst({
         where: {
           id: user.sub,
         },

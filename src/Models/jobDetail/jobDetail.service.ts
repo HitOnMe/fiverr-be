@@ -5,22 +5,22 @@ import { CreateJobDetailDTO } from './jobDetail.validate';
 export class JobTypeService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.chiTietLoaiCongViec.findMany();
+    return await this.prisma.chitietloaicongviec.findMany();
   }
   async addJobDetailType(data: CreateJobDetailDTO) {
-    return await this.prisma.chiTietLoaiCongViec.create({
+    return await this.prisma.chitietloaicongviec.create({
       data,
     });
   }
   async findOne(id: string) {
-    return await this.prisma.chiTietLoaiCongViec.findFirst({
+    return await this.prisma.chitietloaicongviec.findFirst({
       where: {
         id: +id,
       },
     });
   }
   async update(id: string, data: CreateJobDetailDTO) {
-    await this.prisma.chiTietLoaiCongViec.update({
+    await this.prisma.chitietloaicongviec.update({
       where: {
         id: +id,
       },
@@ -28,7 +28,7 @@ export class JobTypeService {
     });
   }
   async delete(id: string) {
-    await this.prisma.chiTietLoaiCongViec.delete({
+    await this.prisma.chitietloaicongviec.delete({
       where: {
         id: +id,
       },

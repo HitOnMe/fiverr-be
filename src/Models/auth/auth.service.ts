@@ -12,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
   async addUser(userData: CreateuserDTO) {
-    const user = await this.prisma.nguoiDung.findFirst({
+    const user = await this.prisma.nguoidung.findFirst({
       where: {
         email: userData.email,
       },
@@ -23,12 +23,12 @@ export class AuthService {
     const salt = jwtConstants.SALT_BCRYPT;
     const hash = await bcrypt.hash(userData?.pass_word, salt ? +salt : 5);
     userData.pass_word = hash;
-    return await this.prisma.nguoiDung.create({
+    return await this.prisma.nguoidung.create({
       data: userData,
     });
   }
   async loginUser(email: string, pass: string) {
-    const user = await this.prisma.nguoiDung.findFirst({
+    const user = await this.prisma.nguoidung.findFirst({
       where: {
         email: email,
       },

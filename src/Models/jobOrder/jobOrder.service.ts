@@ -5,22 +5,22 @@ import { CreateJobOrderDTO } from './jobOrder.validate';
 export class JobTypeService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.thueCongViec.findMany();
+    return await this.prisma.thuecongviec.findMany();
   }
   async addJobOrder(data: CreateJobOrderDTO) {
-    return await this.prisma.thueCongViec.create({
+    return await this.prisma.thuecongviec.create({
       data,
     });
   }
   async findJobType(id: string) {
-    return await this.prisma.thueCongViec.findFirst({
+    return await this.prisma.thuecongviec.findFirst({
       where: {
         id: +id,
       },
     });
   }
   async updateJobType(id: string, data: CreateJobOrderDTO) {
-    return await this.prisma.thueCongViec.update({
+    return await this.prisma.thuecongviec.update({
       where: {
         id: +id,
       },
@@ -28,21 +28,21 @@ export class JobTypeService {
     });
   }
   async deleteJobType(id: string) {
-    return await this.prisma.thueCongViec.delete({
+    return await this.prisma.thuecongviec.delete({
       where: {
         id: +id,
       },
     });
   }
   async getJobList(id: string) {
-    return await this.prisma.thueCongViec.findMany({
+    return await this.prisma.thuecongviec.findMany({
       where: {
         ma_nguoi_thue: +id,
       },
     });
   }
   async checkJobDone(userId: string, jobId: string) {
-    return await this.prisma.thueCongViec.findFirst({
+    return await this.prisma.thuecongviec.findFirst({
       where: {
         ma_nguoi_thue: +userId,
         id: +jobId,

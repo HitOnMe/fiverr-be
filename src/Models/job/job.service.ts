@@ -5,29 +5,29 @@ import { CreateJobDTO } from './job.validate';
 export class JobService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.congViec.findMany();
+    return await this.prisma.congviec.findMany();
   }
   async findOne(id: string) {
-    return await this.prisma.congViec.findFirst({
+    return await this.prisma.congviec.findFirst({
       where: {
         id: +id,
       },
     });
   }
   async addJob(data: CreateJobDTO) {
-    return await this.prisma.congViec.create({
+    return await this.prisma.congviec.create({
       data,
     });
   }
   async deleteJob(id: string) {
-    return await this.prisma.congViec.delete({
+    return await this.prisma.congviec.delete({
       where: {
         id: +id,
       },
     });
   }
   async updateJob(id: string, data: CreateJobDTO) {
-    return await this.prisma.congViec.update({
+    return await this.prisma.congviec.update({
       where: {
         id: +id,
       },

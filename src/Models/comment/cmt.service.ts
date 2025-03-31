@@ -5,22 +5,22 @@ import { CreateCmtDTO } from './cmt.validate';
 export class CommentService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.binhLuan.findMany();
+    return await this.prisma.binhluan.findMany();
   }
   async addCmt(data: CreateCmtDTO) {
-    return await this.prisma.binhLuan.create({
+    return await this.prisma.binhluan.create({
       data,
     });
   }
   async getCmtById(id: string) {
-    return await this.prisma.binhLuan.findFirst({
+    return await this.prisma.binhluan.findFirst({
       where: {
         id: +id,
       },
     });
   }
   async updateCmt(id: string, data: CreateCmtDTO) {
-    return await this.prisma.binhLuan.update({
+    return await this.prisma.binhluan.update({
       where: {
         id: +id,
       },
@@ -28,14 +28,14 @@ export class CommentService {
     });
   }
   async deleteCmt(id: string) {
-    return await this.prisma.binhLuan.delete({
+    return await this.prisma.binhluan.delete({
       where: {
         id: +id,
       },
     });
   }
   async getCmtByJob(id: string) {
-    return await this.prisma.binhLuan.findFirst({
+    return await this.prisma.binhluan.findFirst({
       where: {
         ma_cong_viec: +id,
       },
