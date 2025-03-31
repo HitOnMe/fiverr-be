@@ -80,7 +80,7 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "builds": [{ "src": "dist/src/main.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/.*", "dest": "dist/src/main.js" }]
+  "builds": [{ "src": "src/dist/main.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/.*", "dest": "src/dist/main.js" }]
 
 }
