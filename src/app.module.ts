@@ -9,6 +9,7 @@ import JobOrderModule from './Models/jobOrder/jobOrder.module';
 import authModule from './Models/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role/role.guards';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     PrismaModule,
@@ -19,6 +20,7 @@ import { RolesGuard } from './guards/role/role.guards';
     JobDetailModule,
     JobOrderModule,
     authModule,
+    ConfigModule.forRoot(),
   ],
   providers: [
     {

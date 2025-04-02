@@ -48,4 +48,15 @@ export class AuthService {
       access_Token: await this.jwtService.signAsync(payload),
     };
   }
+  async updateImage(id: string, data: CreateuserDTO, file: string) {
+    return await this.prisma.nguoidung.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        ...data,
+        avatar: file,
+      },
+    });
+  }
 }

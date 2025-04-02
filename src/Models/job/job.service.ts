@@ -34,4 +34,15 @@ export class JobService {
       data,
     });
   }
+  async updateImage(id: string, data: CreateJobDTO, file: string) {
+    return await this.prisma.congviec.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        ...data,
+        hinh_anh: file,
+      },
+    });
+  }
 }

@@ -2,7 +2,7 @@ import { Injectable, Controller, Get, Inject, Req } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateJobDetailDTO } from './jobDetail.validate';
 @Injectable()
-export class JobTypeService {
+export class JobDetailService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
     return await this.prisma.chitietloaicongviec.findMany();
@@ -31,6 +31,17 @@ export class JobTypeService {
     await this.prisma.chitietloaicongviec.delete({
       where: {
         id: +id,
+      },
+    });
+  }
+  async updateImage(id: string, data: CreateJobDetailDTO, file: string) {
+    return await this.prisma.chitietloaicongviec.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        ...data,
+        hinh_anh: file,
       },
     });
   }

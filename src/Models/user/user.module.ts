@@ -5,8 +5,10 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { RolesGuard } from 'src/guards/role/role.guards';
 import { JwtStrategy } from '../../constanst/jwt.passport';
 import { APP_GUARD } from '@nestjs/core';
+import jobUploadModule from 'src/uploadFile/upload.module';
+import { ConfigModule } from '@nestjs/config';
 @Module({
-  imports: [],
+  imports: [jobUploadModule, ConfigModule.forRoot()],
   controllers: [UserController],
   providers: [
     UserService,

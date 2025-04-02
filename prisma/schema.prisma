@@ -23,6 +23,7 @@ model nguoidung{
   gender String
   role String
   certification String
+  avatar String @default("default-avatar.png")
   job congviec[]
   cmt binhluan[]
   jobOrder thuecongviec[]

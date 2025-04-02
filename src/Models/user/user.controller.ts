@@ -9,9 +9,10 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
+
 import { CreateuserDTO } from './user.validate';
 import { responseSuccess, responseError } from '../../common/response.js';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BadRequestException } from '../../helper/error.helper';
 import { AuthGuard } from 'src/guards/auth/auth.gards';
 import { Role } from 'src/guards/role/role.enum';
@@ -19,7 +20,7 @@ import { Roles } from 'src/guards/role/role.decorator';
 @ApiTags('user')
 @ApiBearerAuth('access-token')
 @UseGuards(AuthGuard)
-@Roles(Role.Admin) // only admin have permission
+@Roles(Role.Admin)
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}

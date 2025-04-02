@@ -8,18 +8,32 @@ import {
   Delete,
   Put,
   UseGuards,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+
 import { CreateJobDTO } from './job.validate';
 import { responseSuccess, responseError } from '../../common/response.js';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from 'src/guards/auth/auth.gards';
 import { BadRequestException } from '../../helper/error.helper';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadService } from 'src/uploadFile/upload.congviec';
 @ApiTags('CongViec')
 @ApiBearerAuth('access-token')
 @UseGuards(AuthGuard)
 @Controller()
-export class UserController {
-  constructor(private readonly JobService: JobService) {}
+export class JobController {
+  constructor(
+    private readonly JobService: JobService,
+    private uploadService: UploadService,
+  ) {}
 
   @Get('/cong-viec')
   async getAllJob() {
@@ -66,5 +80,30 @@ export class UserController {
     } catch (error) {
       throw new BadRequestException(400, error);
     }
+  }
+  @Post('upload-hinh-cong-viec/:MaCongViec')
+  @ApiConsumes('multipart/form-data')
+  @ApiParam({ name: 'MaCongViec', required: true, type: Number }) // Định dạng param trong path
+  @ApiBody({
+    description: 'Upload hình ảnh công việc',
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        formFile: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('formFile'))
+  async uploadToS3(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('MaCongViec') id: string,
+    data: CreateJobDTO,
+  ) {
+    const fileUpload = await this.uploadService.uploadFile(file);
+    return await this.JobService.updateImage(id, data, fileUpload);
   }
 }
