@@ -50,7 +50,7 @@ export class CreateuserDTO {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  SKills: string;
+  Skills: string;
 
   @ApiProperty()
   @IsNotEmpty()
