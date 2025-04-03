@@ -7,6 +7,7 @@ import {
   Param,
   Put,
   Delete,
+  Query,
   UseGuards,
   UseInterceptors,
   UploadedFile,
@@ -83,9 +84,21 @@ export class JobDetailController {
       throw new BadRequestException(400, error);
     }
   }
+  @Get('/jobDetail/phan-trang-tim-kiem')
+  async paginate(
+    @Query('pageSize') pageSize: string,
+    @Query('pageIndex') pageIndex: string,
+  ) {
+    try {
+      const data = await this.JobDetailService.paginate(pageSize, pageIndex);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
   @Post('upload-hinh-nhom-loai-cong-viec/:MaNhomLoaiCongViec')
   @ApiConsumes('multipart/form-data')
-  @ApiParam({ name: 'MaNhomLoaiCongViec', required: true, type: Number }) // Định dạng param trong path
+  @ApiParam({ name: 'MaNhomLoaiCongViec', required: true, type: Number })
   @ApiBody({
     description: 'Upload hình ảnh công việc',
     required: true,

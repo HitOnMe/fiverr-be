@@ -8,6 +8,7 @@ import {
   Put,
   Delete,
   UseGuards,
+  Query,
   Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -85,6 +86,18 @@ export class UserController {
   async checkJobDone(@Req() req, @Param('MaThueCongViec') id: string) {
     try {
       const data = await this.JobTypeService.checkJobDone(req.user.sub, id);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('/jobdetail-pagination')
+  async paginate(
+    @Query('pageSize') pageSize: string,
+    @Query('pageIndex') pageIndex: string,
+  ) {
+    try {
+      const data = await this.JobTypeService.paginate(pageSize, pageIndex);
       return responseSuccess(data);
     } catch (error) {
       throw new BadRequestException(400, error);

@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { JobController } from './job.controller';
 import { JobService } from './job.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UploadService } from 'src/uploadFile/upload.congviec';
 import jobUploadModule from 'src/uploadFile/upload.module';
 import { ConfigModule } from '@nestjs/config';
 @Module({

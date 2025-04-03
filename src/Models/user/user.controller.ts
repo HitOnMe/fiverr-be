@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 
 import { CreateuserDTO } from './user.validate';
@@ -104,6 +105,18 @@ export class UserController {
     try {
       const user = await this.userService.SearchUserByName(name);
       return responseSuccess(user);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('/user-pagination')
+  async paginate(
+    @Query('pageSize') pageSize: string,
+    @Query('pageIndex') pageIndex: string,
+  ) {
+    try {
+      const data = await this.userService.paginate(pageSize, pageIndex);
+      return responseSuccess(data);
     } catch (error) {
       throw new BadRequestException(400, error);
     }

@@ -10,6 +10,7 @@ import authModule from './Models/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role/role.guards';
 import { ConfigModule } from '@nestjs/config';
+import SKillModule from './Models/Skill/Skill.module';
 @Module({
   imports: [
     PrismaModule,
@@ -20,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
     JobDetailModule,
     JobOrderModule,
     authModule,
+    SKillModule,
     ConfigModule.forRoot(),
   ],
   providers: [

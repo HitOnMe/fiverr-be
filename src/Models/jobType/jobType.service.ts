@@ -34,4 +34,21 @@ export class JobTypeService {
       },
     });
   }
+  async updateImage(id: string, data: CreateJobTypeDTO, file: string) {
+    return await this.prisma.chitietloaicongviec.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        ...data,
+        hinh_anh: file,
+      },
+    });
+  }
+  async paginate(pageSize: string, pageIndex: string) {
+    return await this.prisma.chitietloaicongviec.findMany({
+      skip: +pageSize * (+pageIndex - 1),
+      take: +pageSize,
+    });
+  }
 }

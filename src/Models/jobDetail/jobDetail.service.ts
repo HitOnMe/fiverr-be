@@ -5,7 +5,11 @@ import { CreateJobDetailDTO } from './jobDetail.validate';
 export class JobDetailService {
   constructor(private prisma: PrismaService) {}
   async findAll() {
-    return await this.prisma.chitietloaicongviec.findMany();
+    return await this.prisma.chitietloaicongviec.findMany({
+      include: {
+        jobType: true,
+      },
+    });
   }
   async addJobDetailType(data: CreateJobDetailDTO) {
     return await this.prisma.chitietloaicongviec.create({
@@ -43,6 +47,12 @@ export class JobDetailService {
         ...data,
         hinh_anh: file,
       },
+    });
+  }
+  async paginate(pageSize: string, pageIndex: string) {
+    return await this.prisma.loaicongviec.findMany({
+      skip: +pageSize * (+pageIndex - 1),
+      take: +pageSize,
     });
   }
 }

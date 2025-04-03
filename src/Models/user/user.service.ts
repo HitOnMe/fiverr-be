@@ -41,4 +41,10 @@ export class UserService {
       },
     });
   }
+  async paginate(pageSize: string, pageIndex: string) {
+    return await this.prisma.nguoidung.findMany({
+      skip: +pageSize * (+pageIndex - 1),
+      take: +pageSize,
+    });
+  }
 }

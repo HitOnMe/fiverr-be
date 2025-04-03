@@ -6,8 +6,10 @@ import {
   Post,
   Param,
   Put,
+  Req,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth/auth.gards';
 import { CreateJobTypeDTO } from './jobType.validate';
@@ -64,6 +66,18 @@ export class UserController {
   async addUser(@Body() userData: CreateJobTypeDTO) {
     try {
       const data = await this.JobTypeService.addJobType(userData);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('/jobType/phan-trang-tim-kiem')
+  async paginate(
+    @Query('pageSize') pageSize: string,
+    @Query('pageIndex') pageIndex: string,
+  ) {
+    try {
+      const data = await this.JobTypeService.paginate(pageSize, pageIndex);
       return responseSuccess(data);
     } catch (error) {
       throw new BadRequestException(400, error);

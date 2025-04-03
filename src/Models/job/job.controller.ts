@@ -7,6 +7,7 @@ import {
   Post,
   Delete,
   Put,
+  Query,
   UseGuards,
   UploadedFile,
   UseInterceptors,
@@ -81,9 +82,66 @@ export class JobController {
       throw new BadRequestException(400, error);
     }
   }
+  @Get('lay-menu-loai-cong-viec')
+  async GetJobByType() {
+    try {
+      const data = await this.JobService.GetJobByType();
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('lay-menu-loai-cong-viec/:MaLoaiCongViec')
+  async GetJobByTypeId(@Param('MaLoaiCongViec') id: string) {
+    try {
+      const data = await this.JobService.GetJobByTypeId(id);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('lay-cong-viec-theo-chi-tiet-loai/:MaChiTietLoai')
+  async GetJobByDetail(@Param('MaChiTietLoai') id: string) {
+    try {
+      const data = await this.JobService.GetJobByDetail(id);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('lay-cong-viec-chi-tiet/:MaCongViec')
+  async getJobDetail(@Param('MaCongViec') id: string) {
+    try {
+      const data = await this.JobService.getJobDetail(id);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('lay-danh-sach-cong-viec-theo-ten/:TenCongViec')
+  async getJobByName(@Param('TenCongViec') name: string) {
+    try {
+      const data = await this.JobService.getJobByName(name);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
+  @Get('/job/phan-trang-tim-kiem')
+  async paginate(
+    @Query('pageSize') pageSize: string,
+    @Query('pageIndex') pageIndex: string,
+  ) {
+    try {
+      const data = await this.JobService.paginate(pageSize, pageIndex);
+      return responseSuccess(data);
+    } catch (error) {
+      throw new BadRequestException(400, error);
+    }
+  }
   @Post('upload-hinh-cong-viec/:MaCongViec')
   @ApiConsumes('multipart/form-data')
-  @ApiParam({ name: 'MaCongViec', required: true, type: Number }) // Định dạng param trong path
+  @ApiParam({ name: 'MaCongViec', required: true, type: Number })
   @ApiBody({
     description: 'Upload hình ảnh công việc',
     required: true,

@@ -22,6 +22,7 @@ model nguoidung{
   birth_day DateTime
   gender String
   role String
+  Skills String @default("string")
   certification String
   avatar String @default("default-avatar.png")
   job congviec[]
@@ -37,10 +38,12 @@ model congviec{
   mo_ta String
   mo_ta_ngan String
   sao_cong_viec Int
+  ma_loai_cong_viec Int @default(1)
   ma_chi_tiet_loai Int
   nguoi_tao Int
   user nguoidung? @relation(fields:[nguoi_tao], references: [id], onDelete: Cascade)
   cmt binhluan?
+  dsNhomChiTietLoai loaicongviec @relation(fields: [ma_loai_cong_viec], references: [id],onDelete: Cascade)
   jobType chitietloaicongviec? @relation(fields: [ma_chi_tiet_loai], references: [id], onDelete: Cascade)
   jobOrder thuecongviec?
 } 
@@ -75,4 +78,9 @@ model loaicongviec{
   id Int @unique @default(autoincrement())
   ten_loai_cong_viec String
   jobDetail chitietloaicongviec[]
+  dsNhomChiTietLoai congviec[]
+}
+model Skill{
+  id Int @unique @default(autoincrement())
+  tenSKill String
 }

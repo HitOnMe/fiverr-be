@@ -23,6 +23,7 @@ export class AuthService {
     const salt = jwtConstants.SALT_BCRYPT;
     const hash = await bcrypt.hash(userData?.pass_word, salt ? +salt : 5);
     userData.pass_word = hash;
+
     return await this.prisma.nguoidung.create({
       data: userData,
     });

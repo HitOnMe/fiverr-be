@@ -50,4 +50,10 @@ export class JobTypeService {
       },
     });
   }
+  async paginate(pageSize: string, pageIndex: string) {
+    return await this.prisma.thuecongviec.findMany({
+      skip: +pageSize * (+pageIndex - 1),
+      take: +pageSize,
+    });
+  }
 }

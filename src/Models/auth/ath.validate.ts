@@ -50,6 +50,11 @@ export class CreateuserDTO {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
+  SKills: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
   certification: string;
 }
 export class loginUserDTO {

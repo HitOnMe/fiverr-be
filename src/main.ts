@@ -16,6 +16,7 @@ async function bootstrap() {
     .addTag('LoaiCongViec')
     .addTag('ChiTietLoaiCongViec')
     .addTag('ThueCongViec')
+    .addTag('Skills')
     .addBearerAuth(
       {
         type: 'http',
